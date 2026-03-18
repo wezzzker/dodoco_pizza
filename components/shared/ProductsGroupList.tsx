@@ -1,8 +1,12 @@
+"use client"
+
 import React from "react"
 import { Title } from "./Title"
 import { cn } from "@/lib/utils"
 import { ProductCard } from "./ProductCard"
-// https://media.dodostatic.net/image/r:292x292/019a109fe01672189d029a725ba99705.avif
+import { useIntersection } from "react-use"
+import { useCategoryStore } from "@/store/category"
+
 interface Props {
   className?: string
   title: string
@@ -18,8 +22,22 @@ export const ProductsGroupList: React.FC<Props> = ({
   title,
   listClassName,
 }) => {
+  // ///////////////////////////
+  const setActiveCategoryId = useCategoryStore((state) => state.setActiveId)
+  const intersectionRef = React.useRef<any>(null)
+  const intersection = useIntersection(intersectionRef, {
+    root: null,
+    threshold: 0.4,
+  })
+
+  React.useEffect(() => {
+    if (intersection?.isIntersecting) {
+      setActiveCategoryId(categoryId)
+    }
+  }, [categoryId, intersection?.isIntersecting, title])
+  // ////////////
   return (
-    <div className={className}>
+    <div className={className} id={title} ref={intersectionRef}>
       <Title text={title} size="lg" className="mb-5 font-extrabold" />
       <div className={cn("grid grid-cols-3 gap-12.5", listClassName)}>
         {items.map((product) => (

@@ -17,6 +17,46 @@ export default function Page() {
         "https://media.dodostatic.net/image/r:292x292/019a109fe01672189d029a725ba99705.avif",
       items: [{ price: 550 }],
     },
+    {
+      id: 2,
+      name: "Четыре сыра",
+      price: 550,
+      imageUrl:
+        "https://media.dodostatic.net/image/r:292x292/019a109fe01672189d029a725ba99705.avif",
+      items: [{ price: 550 }],
+    },
+    {
+      id: 3,
+      name: "Четыре сыра",
+      price: 550,
+      imageUrl:
+        "https://media.dodostatic.net/image/r:292x292/019a109fe01672189d029a725ba99705.avif",
+      items: [{ price: 550 }],
+    },
+    {
+      id: 4,
+      name: "Четыре сыра",
+      price: 550,
+      imageUrl:
+        "https://media.dodostatic.net/image/r:292x292/019a109fe01672189d029a725ba99705.avif",
+      items: [{ price: 550 }],
+    },
+    {
+      id: 5,
+      name: "Четыре сыра",
+      price: 550,
+      imageUrl:
+        "https://media.dodostatic.net/image/r:292x292/019a109fe01672189d029a725ba99705.avif",
+      items: [{ price: 550 }],
+    },
+    {
+      id: 6,
+      name: "Четыре сыра",
+      price: 550,
+      imageUrl:
+        "https://media.dodostatic.net/image/r:292x292/019a109fe01672189d029a725ba99705.avif",
+      items: [{ price: 550 }],
+    },
   ]
   return (
     <>
@@ -30,8 +70,9 @@ export default function Page() {
             <Filters className="" />
           </div>
           <div className="flex-1">
-            <div className="flex flex-col gap-16">
+            <div className="flex flex-col gap-20">
               <ProductsGroupList title="Пиццы" items={pizzas} categoryId={0} />
+              <ProductsGroupList title="Комбо" items={pizzas} categoryId={1} />
             </div>
           </div>
         </div>
