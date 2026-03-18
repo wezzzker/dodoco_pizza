@@ -1,6 +1,23 @@
-import { Title, Container, TopBar, Filters } from "@/components/shared"
+import {
+  Title,
+  Container,
+  TopBar,
+  Filters,
+  ProductCard,
+} from "@/components/shared"
+import { ProductsGroupList } from "@/components/shared/ProductsGroupList"
 
 export default function Page() {
+  const pizzas = [
+    {
+      id: 1,
+      name: "Четыре сыра",
+      price: 550,
+      imageUrl:
+        "https://media.dodostatic.net/image/r:292x292/019a109fe01672189d029a725ba99705.avif",
+      items: [{ price: 550 }],
+    },
+  ]
   return (
     <>
       <Container className="mt-10">
@@ -13,7 +30,9 @@ export default function Page() {
             <Filters className="" />
           </div>
           <div className="flex-1">
-            <div className="flex flex-col gap-16">Список товаров</div>
+            <div className="flex flex-col gap-16">
+              <ProductsGroupList title="Пиццы" items={pizzas} categoryId={0} />
+            </div>
           </div>
         </div>
       </Container>

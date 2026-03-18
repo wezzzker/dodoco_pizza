@@ -35,9 +35,9 @@ pnpm-debug.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#ai
-.kilocodemodes
 
-#prettier
+.kilocodemodes
 .prettierrc
 .prettierignore
+.gitignore
+README.MD
