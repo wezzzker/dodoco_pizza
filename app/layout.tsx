@@ -1,15 +1,21 @@
-import { Geist, Geist_Mono, Inter } from "next/font/google"
-
+import type { Metadata } from "next"
+import { Nunito } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
+import { Header } from "../components/shared/Header"
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'})
-
-const fontMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
+const nunito = Nunito({
+  subsets: ["cyrillic"],
+  variable: "--font-nunito",
+  weight: ["400", "500", "600", "700", "800", "900"],
 })
+
+export const metadata: Metadata = {
+  title: "DoDoCo Pizza",
+  description: "Пет проект на Next",
+  icons: {
+    icon: "/favicon.ico",
+  },
+}
 
 export default function RootLayout({
   children,
@@ -17,13 +23,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", inter.variable)}
-    >
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
+    <html lang="en">
+      <body className={nunito.variable}>
+        <Header />
+        <main className="min-h-screen">{children}</main>
       </body>
     </html>
   )
