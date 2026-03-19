@@ -30,6 +30,7 @@ pnpm-debug.log*
 
 # env files
 .env*.local
+.env
 
 # typescript
 *.tsbuildinfo
@@ -42,3 +43,8 @@ next-env.d.ts
 .gitignore
 README.MD
 README.md
+/generated/prisma
+.vscode
+
+/generated/prisma
+/script.ts
