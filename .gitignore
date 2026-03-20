@@ -41,10 +41,11 @@ next-env.d.ts
 .prettierrc
 .prettierignore
 .gitignore
-README.MD
-README.md
+/README.MD
+/README.md
 /generated/prisma
 .vscode
 
 /generated/prisma
-/script.ts
+
+/secret.txt
