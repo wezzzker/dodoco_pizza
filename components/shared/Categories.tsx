@@ -24,12 +24,12 @@ export const Categories: React.FC<Props> = ({ className }) => {
   //////////////
   return (
     <div
-      className={cn("inline-flex gap-1 rounded-2xl bg-gray-50 p-1", className)}
+      className={cn("inline-flex gap-1 rounded-md bg-gray-50 p-1", className)}
     >
       {cats.map((cat, index) => (
         <a
           className={cn(
-            "flex h-11 items-center rounded-2xl px-5 font-bold",
+            "flex h-11 items-center rounded-md px-5 font-bold",
             categoryActiveId === cat.id &&
               "bg-white text-primary shadow-md shadow-gray-200"
           )}
