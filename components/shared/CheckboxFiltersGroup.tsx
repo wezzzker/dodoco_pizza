@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from "react"
 import { FilterChecboxProps, FilterCheckbox } from "./FilterCheckbox"
-import { Input } from "../ui"
+import { Input, Skeleton } from "../ui"
 
 interface Props {
   className?: string
@@ -10,8 +10,11 @@ interface Props {
   defaultItems: Item[]
   limit?: number
   seatchImnputPlaceholder?: string
-  onChange?: (values: string[]) => void
+  onClickCheckbox?: (id: string) => void
   defaultValue?: string
+  loading?: boolean
+  selectedIds?: Set<string>
+  name?: string
 }
 
 type Item = FilterChecboxProps
@@ -23,11 +26,17 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
   limit = 5,
   seatchImnputPlaceholder = "Поиск...",
   className,
-  onChange,
+  loading,
+  onClickCheckbox,
   defaultValue,
+  selectedIds,
+  name,
 }) => {
   const [showAll, setShowAll] = useState(false)
   const [searchValue, setSearchValue] = useState("")
+
+  //
+
   //
   const onChangeSearchInput = (
     event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>
@@ -40,7 +49,21 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
         item.text.toLowerCase().includes(searchValue.toLowerCase().trim())
       )
     : defaultItems.slice(0, limit)
-  //
+  // Skeleton во время загрузки
+  if (loading) {
+    return (
+      <div className={className}>
+        <p className="mb-3 font-bold">{title}</p>
+        {...Array(limit)
+          .fill(0)
+          .map((_, index) => (
+            <Skeleton key={index} className="mb-4 h-6 rounded-[8px]" />
+          ))}
+        <Skeleton className="mb-4 h-6 w-28 rounded-[8px]" />
+      </div>
+    )
+  }
+  // Основная разметка
   return (
     <div className={className}>
       <p className="mb-3 font-bold">{title}</p>
@@ -62,12 +85,13 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
             text={item.text}
             value={item.value}
             endAdornment={item.endAdornment}
-            checked={false}
-            onCheckedChange={(i) => console.log(i)}
+            checked={selectedIds?.has(item.value)}
+            onCheckedChange={() => onClickCheckbox?.(item.value)}
+            name={name}
           />
         ))}
       </div>
-
+      {/* раскрыть список */}
       {items.length > limit && (
         <div className={showAll ? "mt-4 border-t border-t-neutral-100" : ""}>
           <button
