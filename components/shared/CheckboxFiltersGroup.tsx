@@ -7,13 +7,13 @@ interface Props {
   className?: string
   title: string
   items: Item[]
-  defaultItems: Item[]
+  defaultItems?: Item[]
   limit?: number
   seatchImnputPlaceholder?: string
   onClickCheckbox?: (id: string) => void
   defaultValue?: string
   loading?: boolean
-  selectedIds?: Set<string>
+  selected?: Set<string>
   name?: string
 }
 
@@ -29,7 +29,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
   loading,
   onClickCheckbox,
   defaultValue,
-  selectedIds,
+  selected,
   name,
 }) => {
   const [showAll, setShowAll] = useState(false)
@@ -48,7 +48,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
     ? items.filter((item) =>
         item.text.toLowerCase().includes(searchValue.toLowerCase().trim())
       )
-    : defaultItems.slice(0, limit)
+    : (defaultItems || items).slice(0, limit)
   // Skeleton во время загрузки
   if (loading) {
     return (
@@ -85,7 +85,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
             text={item.text}
             value={item.value}
             endAdornment={item.endAdornment}
-            checked={selectedIds?.has(item.value)}
+            checked={selected?.has(item.value)}
             onCheckedChange={() => onClickCheckbox?.(item.value)}
             name={name}
           />
