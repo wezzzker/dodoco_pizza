@@ -27,7 +27,7 @@ export const ProductsGroupList: React.FC<Props> = ({
   const intersectionRef = React.useRef<any>(null)
   const intersection = useIntersection(intersectionRef, {
     root: null,
-    threshold: 0.4,
+    threshold: 0.6,
   })
 
   React.useEffect(() => {
@@ -36,6 +36,7 @@ export const ProductsGroupList: React.FC<Props> = ({
     }
   }, [categoryId, intersection?.isIntersecting, title])
   // ////////////
+
   return (
     <div className={className} id={title} ref={intersectionRef}>
       <Title text={title} size="lg" className="mb-5 font-extrabold" />
@@ -45,7 +46,7 @@ export const ProductsGroupList: React.FC<Props> = ({
             id={product.id}
             imageUrl={product.imageUrl}
             name={product.name}
-            price={product.items[0].price}
+            price={product.productVariations[0].price}
             key={product.id}
           />
         ))}

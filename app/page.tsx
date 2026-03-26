@@ -1,13 +1,8 @@
-import {
-  Title,
-  Container,
-  TopBar,
-  Filters,
-  ProductCard,
-} from "@/components/shared"
+import { Title, Container, TopBar, Filters } from "@/components/shared"
 import { ProductsGroupList } from "@/components/shared/ProductsGroupList"
+import { prisma } from "@/lib/db"
 
-export default function Page() {
+export default async function Page() {
   const pizzas = [
     {
       id: 1,
@@ -58,21 +53,41 @@ export default function Page() {
       items: [{ price: 550 }],
     },
   ]
+
+  const categories = await prisma.category.findMany({
+    include: {
+      products: { include: { productVariations: true, ingredients: true } },
+    },
+  })
   return (
     <>
       <Container className="mt-10">
         <Title text="Все пиццы" size="lg" className="font-extrabold" />
       </Container>
-      <TopBar />
+      <TopBar
+        categories={categories.filter(
+          (category) => category.products.length > 0
+        )}
+      />
       <Container className="mt-10 pb-14">
         <div className="flex gap-15">
           <div className="w-62.5">
             <Filters className="" />
           </div>
+          {/* Товары */}
           <div className="flex-1">
-            <div className="flex flex-col gap-20">
-              <ProductsGroupList title="Пиццы" items={pizzas} categoryId={0} />
-              <ProductsGroupList title="Комбо" items={pizzas} categoryId={1} />
+            <div className="flex flex-col gap-16">
+              {categories.map(
+                (category) =>
+                  category.products.length > 0 && (
+                    <ProductsGroupList
+                      key={category.id}
+                      title={category.name}
+                      items={category.products}
+                      categoryId={category.id}
+                    />
+                  )
+              )}
             </div>
           </div>
         </div>
