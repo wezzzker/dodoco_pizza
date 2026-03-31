@@ -29,9 +29,7 @@ export async function generateMetadata({ params}: ProductPageProps): Promise<Met
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params
   const product = await prisma.product.findFirst({ where: { id: Number(id) } })
-  // const variants = await prisma.productVariation.findMany({
-  //   where: { product: { id: Number(id) } },
-  // })
+
   if (!product) return notFound()
 
   return (
@@ -39,7 +37,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <div className="flex flex-1">
         <ProductImage
           imageUrl={product.imageUrl}
-          name={product.name}
           size={40}
         />
 

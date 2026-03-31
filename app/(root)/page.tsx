@@ -72,7 +72,7 @@ export default async function Page() {
       <Container className="mt-10 pb-14">
         <div className="flex gap-15">
           <div className="w-62.5">
-            <Filters className="" />
+            <Filters/>
           </div>
           {/* Товары */}
           <div className="flex-1">

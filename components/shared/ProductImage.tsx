@@ -4,15 +4,15 @@ import React from "react"
 interface Props {
   className?: string
   imageUrl: string
-  name: string
-  size: number
+  productType: number
+  size: 20|30|40
 }
 
 export const ProductImage: React.FC<Props> = ({
-  name,
+  
   imageUrl,
   className,
-  size,
+  size,productType
 }) => {
   return (
     <div
@@ -23,7 +23,7 @@ export const ProductImage: React.FC<Props> = ({
     >
       <img
         src={imageUrl}
-        alt={name}
+        alt={''}
         className={cn(
           "relative top-2 left-2 z-10 transition-all duration-300",
           {
@@ -33,8 +33,15 @@ export const ProductImage: React.FC<Props> = ({
           }
         )}
       />
-      <div className="absolute top-1/2 left-1/2 h-[450px] w-[450px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-gray-200" />
-      <div className="absolute top-1/2 left-1/2 h-[370px] w-[370px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dotted border-gray-100" />
+      {
+      productType==1 && (
+        <>
+      <div className="absolute top-1/2 left-1/2 h-112.5 w-112.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-gray-200" />
+      <div className="absolute top-1/2 left-1/2 h-92.5 w-92.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dotted border-gray-100" />
+        </>
+      )
+        }
+      
     </div>
   )
 }

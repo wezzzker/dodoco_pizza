@@ -10,7 +10,7 @@ const nunito = Nunito({
 })
 
 
-export default function MainLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
