@@ -1,5 +1,5 @@
 import { Prisma } from "./app/generated/prisma-client"
-import { prisma } from "./lib/db"
+import { prisma } from "./shared/lib/db"
 import { _ingredients, categories, products } from "./prisma/constants"
 import { hashSync } from "bcrypt"
 //

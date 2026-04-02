@@ -39,6 +39,7 @@ html {
   --input: hsl(0 0% 90%);
   --ring: hsl(24.6 95% 53.1%);
   --radius: 1rem;
+  --shadow-all: 35px rgba(0, 0, 0, 0.918);
 }
 button {
   cursor: pointer;
@@ -111,6 +112,7 @@ button {
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --shadow-all: var(--shadow-all);
 }
 @layer base {
   * {

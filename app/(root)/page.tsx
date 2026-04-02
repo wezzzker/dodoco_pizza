@@ -1,6 +1,6 @@
-import { Title, Container, TopBar, Filters } from "@/components/shared"
-import { ProductsGroupList } from "@/components/shared/ProductsGroupList"
-import { prisma } from "@/lib/db"
+import { Title, Container, TopBar, Filters } from "@/shared/components/shared"
+import { ProductsGroupList } from "@/shared/components/shared/ProductsGroupList"
+import { prisma } from "@/shared/lib/db"
 
 export default async function Page() {
   const pizzas = [

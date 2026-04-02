@@ -3,8 +3,8 @@ import {
   GroupVariants,
   ProductImage,
   Title,
-} from "@/components/shared"
-import { prisma } from "@/lib/db"
+} from "@/shared/components/shared"
+import { prisma } from "@/shared/lib/db"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
