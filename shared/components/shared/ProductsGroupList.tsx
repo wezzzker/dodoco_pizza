@@ -5,7 +5,7 @@ import { Title } from "./Title"
 import { cn } from "@/shared/lib/utils"
 import { ProductCard } from "./ProductCard"
 import { useIntersection } from "react-use"
-import { useCategoryStore } from "@/shared/store/category"
+import { useCategoryStore } from "@/shared/store"
 
 interface Props {
   className?: string
@@ -26,10 +26,8 @@ export const ProductsGroupList: React.FC<Props> = ({
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId)
   const intersectionRef = React.useRef<any>(null)
   const intersection = useIntersection(intersectionRef, {
-  root: null,
-  threshold: 0.6,
-  
-  
+    root: null,
+    threshold: 0.6,
   })
 
   React.useEffect(() => {
@@ -40,7 +38,11 @@ export const ProductsGroupList: React.FC<Props> = ({
   // ////////////
 
   return (
-    <div className={cn('scroll-mt-24',className)} id={title} ref={intersectionRef}>
+    <div
+      className={cn("scroll-mt-24", className)}
+      id={title}
+      ref={intersectionRef}
+    >
       <Title text={title} size="lg" className="mb-5 font-extrabold" />
       <div className={cn("grid grid-cols-3 gap-12.5", listClassName)}>
         {items.map((product) => (

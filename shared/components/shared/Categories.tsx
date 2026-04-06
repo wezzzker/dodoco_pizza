@@ -1,7 +1,8 @@
 "use client"
 import { Category } from "@/app/generated/prisma-client"
 import { cn } from "@/shared/lib/utils"
-import { useCategoryStore } from "@/shared/store/category"
+import { useCategoryStore } from "@/shared/store"
+
 import React from "react"
 
 interface Props {
