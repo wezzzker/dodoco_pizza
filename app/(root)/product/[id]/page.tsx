@@ -8,23 +8,21 @@ import { prisma } from "@/shared/lib/db"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-
 interface ProductPageProps {
   params: Promise<{
     id: string
   }>
 }
 
-
-
-export async function generateMetadata({ params}: ProductPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: ProductPageProps): Promise<Metadata> {
   const { id } = await params
   const product = await prisma.product.findFirst({ where: { id: Number(id) } })
   return {
     title: product?.name,
   }
 }
-
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params
@@ -38,6 +36,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <ProductImage
           imageUrl={product.imageUrl}
           size={40}
+          productType={product.categoryId}
         />
 
         <div className="w-[490px] bg-[#FCFCFC] p-7">

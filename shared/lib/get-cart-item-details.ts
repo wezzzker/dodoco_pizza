@@ -4,7 +4,7 @@ import { mapPizzaType, PizzaType } from "../constants/pizza"
 export const getCartItemDetails = (
   pizzaType: PizzaType,
   pizzaSize: number,
-  ingredients: Ingredient[]
+  ingredients: Ingredient[] | { name: string }[]
 ): string => {
   const details = []
   if (pizzaSize && pizzaType) {
