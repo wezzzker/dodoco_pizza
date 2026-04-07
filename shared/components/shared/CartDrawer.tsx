@@ -25,8 +25,16 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
   className,
   children,
 }) => {
-  const { fetchCartItems, items, totalAmount } = useCartStore()
+  const { fetchCartItems, items, totalAmount, updateItemQuantity } =
+    useCartStore()
 
+  const onClickCountButton = (
+    id: number,
+    quantity: number,
+    type: "plus" | "minus"
+  ) => {
+    console.log(id, quantity, type)
+  }
   React.useEffect(() => {
     fetchCartItems()
   }, [])
@@ -58,6 +66,9 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
               name={item.name}
               price={item.price}
               quantity={item.quantity}
+              onClickCountButton={(type) =>
+                updateItemQuantity(item.id, item.quantity)
+              }
             />
           ))}
         </div>
