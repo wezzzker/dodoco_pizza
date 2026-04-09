@@ -25,31 +25,39 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
   className,
   children,
 }) => {
-  const { fetchCartItems, items, totalAmount, updateItemQuantity } =
-    useCartStore()
+  const {
+    fetchCartItems,
+    cartItems,
+    totalAmount,
+    updateItemQuantity,
+    removeCartItem,
+  } = useCartStore()
 
   const onClickCountButton = (
     id: number,
     quantity: number,
     type: "plus" | "minus"
   ) => {
-    console.log(id, quantity, type)
+    const newQuantity = type === "plus" ? quantity + 1 : quantity - 1
+    updateItemQuantity(id, newQuantity)
   }
   React.useEffect(() => {
     fetchCartItems()
   }, [])
+
   return (
     <Sheet>
       <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent className="flex flex-col justify-between bg-[#ffffff] pb-0">
         <SheetHeader>
           <SheetTitle>
-            В корзине <span className="font-bold">{items.length} товара</span>
+            В корзине{" "}
+            <span className="font-bold">{cartItems.length} товара</span>
           </SheetTitle>
         </SheetHeader>
-        {/* Items */}
+
         <div className="flex-1 overflow-auto">
-          {items.map((item) => (
+          {cartItems.map((item) => (
             <CartDrawerItem
               key={item.id}
               details={
@@ -67,8 +75,9 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
               price={item.price}
               quantity={item.quantity}
               onClickCountButton={(type) =>
-                updateItemQuantity(item.id, item.quantity)
+                onClickCountButton(item.id, item.quantity, type)
               }
+              onClickRemove={() => removeCartItem(item.id)}
             />
           ))}
         </div>
@@ -85,7 +94,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
               <Button
                 type="submit"
                 className="h-12 w-full text-base"
-                onClick={() => console.log(items)}
+                onClick={() => console.log(cartItems)}
               >
                 Оформить заказ
                 <ArrowRight className="ml-2 w-5" />

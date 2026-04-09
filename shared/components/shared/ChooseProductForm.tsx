@@ -18,7 +18,8 @@ interface Props {
   name: string
   ingredients: Ingredient[]
   items: ProductVariation[]
-  onClickAddCart?: VoidFunction
+  onAddPizza: (itemId: number, ingredients: number[]) => void
+  onAddProduct: VoidFunction
   className?: string
   categoryId: number
 }
@@ -29,7 +30,8 @@ export const ChooseProductForm: React.FC<Props> = ({
   ingredients,
   name,
   items,
-  onClickAddCart,
+  onAddPizza,
+  onAddProduct,
   categoryId,
 }) => {
   const {
@@ -40,6 +42,7 @@ export const ChooseProductForm: React.FC<Props> = ({
     setType,
     size,
     type,
+    currentItemId,
   } = usePizzaOptions(items)
 
   const { textDetails, totalPrice } = getProductDetails(
@@ -50,9 +53,10 @@ export const ChooseProductForm: React.FC<Props> = ({
     selectedIngredient
   )
 
-  const handleClickAdd = () => {
-    onClickAddCart?.()
-    console.log({ size, type, ingredients: selectedIngredient })
+  const addPizza = () => {
+    if (currentItemId) {
+      onAddPizza(currentItemId, Array.from(selectedIngredient))
+    }
   }
 
   return (
@@ -97,10 +101,11 @@ export const ChooseProductForm: React.FC<Props> = ({
           )}
         </div>
         <Button
-          onClick={handleClickAdd}
+          onClick={categoryId === 1 ? addPizza : onAddProduct}
           className="block h-[55px] w-full rounded-[18px] px-10 text-base"
         >
-          Добавить в корзину за {totalPrice} ₽
+          Добавить в корзину за {categoryId === 1 ? totalPrice : items[0].price}{" "}
+          ₽
         </Button>
       </div>
     </div>

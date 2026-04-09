@@ -10,6 +10,8 @@ import React from "react"
 import { useRouter } from "next/navigation"
 import { ChooseProductForm } from "../ChooseProductForm"
 import { ProductWithRelations } from "@/@types/prisma"
+import { useCartStore } from "@/shared/store"
+import { on } from "node:cluster"
 
 interface Props {
   className?: string
@@ -18,6 +20,15 @@ interface Props {
 
 export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
   const router = useRouter()
+  const { addCartItem } = useCartStore()
+  const firstItem = product.productVariations[0]
+
+  const onAddProduct = () => {
+    addCartItem({ productItemId: firstItem.id })
+  }
+  const onAddPizza = (productItemId: number, ingredients: number[]) => {
+    addCartItem({ productItemId, ingredients })
+  }
   return (
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
       <DialogContent
@@ -27,6 +38,8 @@ export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
       >
         <DialogTitle className="hidden">{product.name}</DialogTitle>
         <ChooseProductForm
+          onAddProduct={onAddProduct}
+          onAddPizza={onAddPizza}
           imageUrl={product.imageUrl}
           ingredients={product.ingredients}
           items={product.productVariations}

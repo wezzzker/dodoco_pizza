@@ -13,11 +13,18 @@ export type CartItemDTO = CartItem & {
   ingredients: Ingredient[]
 }
 
-export interface CartDTO extends Cart {
-  items: CartItemDTO[]
+export interface CartDTO extends Omit<Cart, "cartItems"> {
+  cartItems: CartItemDTO[]
 }
 
 export interface CreateCartItemValues {
   productItemId: number
   ingredients?: number[]
+}
+
+export interface CartResponse extends Pick<
+  Cart,
+  "id" | "totalAmount" | "token" | "userId" | "createdAt" | "updatedAt"
+> {
+  cartItems: CartItemDTO[]
 }

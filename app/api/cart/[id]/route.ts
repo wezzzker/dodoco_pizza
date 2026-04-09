@@ -7,6 +7,7 @@ interface ParamsProps {
     id: string
   }>
 }
+
 export async function PATCH(req: NextRequest, { params }: ParamsProps) {
   try {
     const id = Number((await params).id)
@@ -37,12 +38,51 @@ export async function PATCH(req: NextRequest, { params }: ParamsProps) {
         quantity: body.quantity,
       },
     })
+
     const updatedUserCart = await updateCartTotalAmount(token)
     return NextResponse.json(updatedUserCart)
   } catch (error) {
     console.log("CART_PATCH Server error", error)
     return NextResponse.json(
       { message: "Не удалось обновить корзину" },
+      { status: 500 }
+    )
+  }
+}
+
+export async function DELETE(req: NextRequest, { params }: ParamsProps) {
+  try {
+    const id = Number((await params).id)
+    const token = req.cookies.get("cartToken")?.value
+
+    if (!token) {
+      return NextResponse.json({ message: "Token not found" })
+    }
+
+    const cartItem = await prisma.cartItem.findFirst({
+      where: {
+        id,
+      },
+    })
+    if (!cartItem) {
+      return NextResponse.json(
+        { message: "Cart item not found" },
+        { status: 404 }
+      )
+    }
+
+    await prisma.cartItem.delete({
+      where: {
+        id,
+      },
+    })
+
+    const updatedUserCart = await updateCartTotalAmount(token)
+    return NextResponse.json(updatedUserCart)
+  } catch (error) {
+    console.log("CART_DELETE", error)
+    return NextResponse.json(
+      { message: "Не удалось удалось удалить товар" },
       { status: 500 }
     )
   }
