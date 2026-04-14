@@ -11,7 +11,8 @@ import { useRouter } from "next/navigation"
 import { ChooseProductForm } from "../ChooseProductForm"
 import { ProductWithRelations } from "@/@types/prisma"
 import { useCartStore } from "@/shared/store"
-import { on } from "node:cluster"
+
+import toast from "react-hot-toast"
 
 interface Props {
   className?: string
@@ -20,17 +21,30 @@ interface Props {
 
 export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
   const router = useRouter()
-  const { addCartItem } = useCartStore()
+  const { addCartItem, loading } = useCartStore()
   const firstItem = product.productVariations[0]
 
-  const onAddProduct = () => {
-    addCartItem({ productItemId: firstItem.id })
-  }
-  const onAddPizza = (productItemId: number, ingredients: number[]) => {
-    addCartItem({ productItemId, ingredients })
+  const onAddtoCart = async (
+    productItemId?: number,
+    ingredients?: number[]
+  ) => {
+    try {
+      const itemId = productItemId ?? firstItem.id
+      await addCartItem({ productItemId: itemId, ingredients })
+      toast.success(`${product.name} теперь в корзине`)
+      router.back()
+    } catch (error) {
+      console.error(error)
+      toast.error("Не удалось добавить товар в корзину")
+    }
   }
   return (
-    <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
+    <Dialog
+      open={Boolean(product)}
+      onOpenChange={() => {
+        router.back()
+      }}
+    >
       <DialogContent
         className={
           "!min-h-[610px] !w-[932px] !max-w-[932px] overflow-hidden bg-white p-1"
@@ -38,13 +52,13 @@ export const ChooseProductModal: React.FC<Props> = ({ className, product }) => {
       >
         <DialogTitle className="hidden">{product.name}</DialogTitle>
         <ChooseProductForm
-          onAddProduct={onAddProduct}
-          onAddPizza={onAddPizza}
+          onAddtoCart={onAddtoCart}
           imageUrl={product.imageUrl}
           ingredients={product.ingredients}
           items={product.productVariations}
           name={product.name}
           categoryId={product.categoryId}
+          loading={loading}
         />
       </DialogContent>
     </Dialog>

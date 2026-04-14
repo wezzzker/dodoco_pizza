@@ -5,7 +5,14 @@ import { Input } from "../ui"
 import { RangeSlider } from "./RangeSlider"
 import { CheckboxFiltersGroup } from "./CheckboxFiltersGroup"
 
-import { useFilters, useIngredients, useQueryFilters } from "@/shared/hooks/index"
+import {
+  useFilters,
+  useIngredients,
+  useQueryFilters,
+} from "@/shared/hooks/index"
+import { useRouter } from "next/router"
+import { useSearchParams } from "next/navigation"
+
 // -------------------------------------------------------------
 interface Props {
   className?: string
@@ -77,7 +84,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
             min={100}
             max={1000}
             placeholder="1000"
-            value={filters.prices.priceFrom?.toString() ?? ""}
+            value={filters.prices.priceTo?.toString() ?? ""}
             onChange={(e) =>
               filters.setPrices("priceTo", Number(e.target.value))
             }

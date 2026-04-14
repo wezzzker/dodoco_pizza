@@ -18,10 +18,11 @@ interface Props {
   name: string
   ingredients: Ingredient[]
   items: ProductVariation[]
-  onAddPizza: (itemId: number, ingredients: number[]) => void
-  onAddProduct: VoidFunction
-  className?: string
+  onAddtoCart: (itemId?: number, ingredients?: number[]) => void
+
   categoryId: number
+  loading: boolean
+  className?: string
 }
 
 export const ChooseProductForm: React.FC<Props> = ({
@@ -30,9 +31,9 @@ export const ChooseProductForm: React.FC<Props> = ({
   ingredients,
   name,
   items,
-  onAddPizza,
-  onAddProduct,
+  onAddtoCart,
   categoryId,
+  loading,
 }) => {
   const {
     addIngredient,
@@ -55,7 +56,9 @@ export const ChooseProductForm: React.FC<Props> = ({
 
   const addPizza = () => {
     if (currentItemId) {
-      onAddPizza(currentItemId, Array.from(selectedIngredient))
+      onAddtoCart(currentItemId, Array.from(selectedIngredient))
+    } else {
+      onAddtoCart()
     }
   }
 
@@ -101,7 +104,8 @@ export const ChooseProductForm: React.FC<Props> = ({
           )}
         </div>
         <Button
-          onClick={categoryId === 1 ? addPizza : onAddProduct}
+          loading={loading}
+          onClick={addPizza}
           className="block h-[55px] w-full rounded-[18px] px-10 text-base"
         >
           Добавить в корзину за {categoryId === 1 ? totalPrice : items[0].price}{" "}

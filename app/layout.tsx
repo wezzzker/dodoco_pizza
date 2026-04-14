@@ -1,14 +1,11 @@
-import type { Metadata } from "next"
-import { Nunito } from "next/font/google"
 import "./global.css"
-
-
+import { Nunito } from "next/font/google"
+import { Toaster } from "react-hot-toast"
 const nunito = Nunito({
   subsets: ["cyrillic"],
   variable: "--font-nunito",
   weight: ["400", "500", "600", "700", "800", "900"],
 })
-
 
 export default function RootLayout({
   children,
@@ -17,11 +14,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <head>
-            <link href="/favicon.ico" rel="icon" data-rh="true"/>
-        </head>
+      <head>
+        <link href="/favicon.ico" rel="icon" data-rh="true" />
+      </head>
       <body className={nunito.variable}>
-        <main className="min-h-screen">{children}</main>
+        <main className="min-h-screen">
+          {children}
+          <Toaster />
+        </main>
       </body>
     </html>
   )
