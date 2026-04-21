@@ -10,9 +10,10 @@ import { User } from "lucide-react"
 
 interface Props {
   className?: string
+  checkout?: boolean
 }
 
-export const Header: React.FC<Props> = ({ className }) => {
+export const Header: React.FC<Props> = ({ className, checkout = false }) => {
   return (
     <header className={cn("border border-b", className)}>
       <Container className="py- flex items-center justify-between py-8">
@@ -30,9 +31,7 @@ export const Header: React.FC<Props> = ({ className }) => {
         </Link>
         {/* Левая часть */}
         {/* Поиск */}
-        <div className="mx-10 flex-1">
-          <SearchInput />
-        </div>
+        <div className="mx-10 flex-1">{!checkout && <SearchInput />}</div>
         {/* Правая часть */}
         <div className="flex items-center gap-3">
           <Button variant={"outline"} className="flex items-center gap-1">
@@ -40,7 +39,7 @@ export const Header: React.FC<Props> = ({ className }) => {
             Войти
           </Button>
           {/* Корзина */}
-          <CartButton />
+          {!checkout && <CartButton />}
         </div>
       </Container>
     </header>

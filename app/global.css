@@ -136,3 +136,8 @@ button {
     @apply bg-background text-foreground;
   }
 }
+.empty {
+  background-image: url(/public/bg.jpg);
+  background-position: center;
+  background-size: cover;
+}

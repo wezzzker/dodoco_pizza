@@ -18,10 +18,8 @@ export default function RootLayout({
         <link href="/favicon.ico" rel="icon" data-rh="true" />
       </head>
       <body className={nunito.variable}>
-        <main className="min-h-screen">
-          {children}
-          <Toaster />
-        </main>
+        {children}
+        <Toaster />
       </body>
     </html>
   )

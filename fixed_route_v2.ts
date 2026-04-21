@@ -74,10 +74,6 @@ export async function POST(req: NextRequest) {
     // Найти cartItem с совпадающими ингредиентами
     let matchingCartItem = null
     for (const item of cartItems) {
-      // Быстрая проверка по количеству ингредиентов
-      if (item.ingredients.length !== ing.length) {
-        continue
-      }
       const itemIngredientIds = item.ingredients.map((ing) => ing.id).sort()
       const requestedIngredientIds = [...ing].sort()
       if (JSON.stringify(itemIngredientIds) === JSON.stringify(requestedIngredientIds)) {

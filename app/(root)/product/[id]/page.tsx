@@ -1,12 +1,17 @@
+// "use client"
 import {
+  ChooseProductForm,
   Container,
   GroupVariants,
   ProductImage,
   Title,
 } from "@/shared/components/shared"
+import { ChooseProduct } from "@/shared/components/shared/ChooseProduct"
 import { prisma } from "@/shared/lib/db"
+import { useCartStore } from "@/shared/store"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
+import toast from "react-hot-toast"
 
 interface ProductPageProps {
   params: Promise<{
@@ -26,36 +31,22 @@ export async function generateMetadata({
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params
-  const product = await prisma.product.findFirst({ where: { id: Number(id) } })
+  const product = await prisma.product.findFirst({
+    where: { id: Number(id) },
+    include: {
+      ingredients: true,
+      category: {
+        include: { products: { include: { productVariations: true } } },
+      },
+      productVariations: true,
+    },
+  })
 
   if (!product) return notFound()
 
   return (
     <Container className="my-10 flex flex-col">
-      <div className="flex flex-1">
-        <ProductImage
-          imageUrl={product.imageUrl}
-          size={40}
-          productType={product.categoryId}
-        />
-
-        <div className="w-[490px] bg-[#FCFCFC] p-7">
-          <Title
-            text={product.name}
-            size="md"
-            className="mb-1 font-extrabold"
-          />
-          <p className="text-gray-400">Тут будет информация</p>
-          <GroupVariants
-            items={[
-              { name: "Маленька", value: "1" },
-              { name: "Средняя", value: "2" },
-              { name: "Большая", value: "3" },
-            ]}
-            selectedValue="2"
-          />
-        </div>
-      </div>
+      <ChooseProduct product={product} />
     </Container>
   )
 }
