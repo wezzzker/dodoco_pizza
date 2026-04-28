@@ -4,7 +4,7 @@ interface Props {
   className?: string
   children?: React.ReactNode
   title: string
-  price: number
+  price: string
 }
 
 export const PaymentDetails: React.FC<Props> = ({
@@ -18,7 +18,7 @@ export const PaymentDetails: React.FC<Props> = ({
       {children}
       <span>{title}:</span>
       <span className="flex-1 border-b border-dashed"></span>
-      <span className="font-bold">{price} P</span>
+      <span className="font-bold">{price} ₽</span>
     </p>
   )
 }

@@ -18,6 +18,7 @@ import { useCartStore } from "@/shared/store"
 import { PizzaSize, PizzaType } from "@/shared/constants/pizza"
 import { CartEmpty } from "./CartEmpty"
 import { Title } from "./Title"
+import { useCart } from "@/shared/hooks"
 
 interface Props {
   className?: string
@@ -27,13 +28,8 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
   className,
   children,
 }) => {
-  const {
-    fetchCartItems,
-    cartItems,
-    totalAmount,
-    updateItemQuantity,
-    removeCartItem,
-  } = useCartStore()
+  const { cartItems, totalAmount, updateItemQuantity, removeCartItem } =
+    useCart()
 
   const onClickCountButton = (
     id: number,
@@ -43,9 +39,6 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
     const newQuantity = type === "plus" ? quantity + 1 : quantity - 1
     updateItemQuantity(id, newQuantity)
   }
-  React.useEffect(() => {
-    fetchCartItems()
-  }, [])
 
   return (
     <Sheet>
@@ -93,7 +86,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
                   <span className="text-lg font-bold">{totalAmount} Р</span>
                 </div>
 
-                <Link href={"/cart"}>
+                <Link href={"/checkout"}>
                   <Button
                     type="submit"
                     className="h-12 w-full text-base"

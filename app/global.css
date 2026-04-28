@@ -136,8 +136,12 @@ button {
     @apply bg-background text-foreground;
   }
 }
-.empty {
-  background-image: url(/public/bg.jpg);
-  background-position: center;
-  background-size: cover;
+/* HTML: <div class="loader"></div> */
+.loader {
+  animation: l1 1s linear infinite alternate;
+}
+@keyframes l1 {
+  to {
+    opacity: 0;
+  }
 }
