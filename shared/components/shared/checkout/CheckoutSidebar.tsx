@@ -1,8 +1,8 @@
 import React from "react"
-import { WhiteBlock } from "./WhiteBlock"
-import { PaymentDetails } from "./PaymentDetails"
 import { Box, Percent, Truck } from "lucide-react"
-import { Button } from "../ui"
+import { WhiteBlock } from "../WhiteBlock"
+import { PaymentDetails } from "../PaymentDetails"
+import { Button } from "../../ui"
 
 interface Props {
   totalAmount: number

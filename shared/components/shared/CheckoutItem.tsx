@@ -5,6 +5,7 @@ import { cn } from "@/shared/lib/utils"
 import { X } from "lucide-react"
 import { CartItemProps } from "./cart-item-details/cart-item-details.types"
 import * as CartItemDetails from "./cart-item-details"
+import { ClearButton } from "./ClearButton"
 
 interface Props extends CartItemProps {
   onClickCountButton?: (type: "plus" | "minus") => void
@@ -45,12 +46,8 @@ export const CheckoutItem: React.FC<Props> = ({
           onClick={onClickCountButton}
           value={quantity}
         />
-        <button type="button" onClick={onClickRemove}>
-          <X
-            className="cursor-pointer text-gray-400 hover:text-gray-600"
-            size={20}
-          />
-        </button>
+
+        <ClearButton onClick={onClickRemove} />
       </div>
     </div>
   )
