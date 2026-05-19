@@ -4,7 +4,7 @@ import { CheckoutFormValues } from "@/shared/components/shared/checkout/checkout
 import { prisma } from "@/shared/lib/db"
 import { OrderStatus } from "./generated/prisma-client"
 import { cookies } from "next/headers"
-import { sendEmail } from "@/shared/lib"
+import { createPayment, sendEmail } from "@/shared/lib"
 import * as Email from "@/shared/components/shared/email-templates"
 
 export async function createOrder(data: CheckoutFormValues) {
@@ -58,17 +58,37 @@ export async function createOrder(data: CheckoutFormValues) {
       where: { cartId: userCart.id },
     })
 
+    // Создаем платеж
+    const paymentData = await createPayment({
+      orderId: order.id,
+      amount: order.totalAmout,
+      description: "Оплата заказа №" + order.id,
+    })
+
+    if (!paymentData) throw new Error("Payment data not found")
+
+    await prisma.order.update({
+      where: {
+        id: order.id,
+      },
+      data: {
+        paymendId: paymentData.id,
+      },
+    })
+
+    // Отправляем письмо с оплатой
+    const paymentUrl = paymentData.confirmation.confirmation_url
     await sendEmail(
       data.email,
       "DoDoCo Pizza | Оплатите заказ №" + order.id,
       Email.Payment({
         orderId: order.id,
         totalAmount: order.totalAmout,
-        paymentUrl: "https://dnd.su/",
+        paymentUrl,
       })
     )
-    return location.replace("https://dnd.su/")
+    return paymentUrl
   } catch (error) {
-    console.error(error)
+    console.log(error)
   }
 }

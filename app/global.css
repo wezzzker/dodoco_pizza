@@ -135,6 +135,12 @@ button {
   body {
     @apply bg-background text-foreground;
   }
+  .emailSuccess {
+    background-image: url("/public/emailBg.jpg");
+    background-position: center;
+    background-size: auto;
+    background-repeat: repeat;
+  }
 }
 /* HTML: <div class="loader"></div> */
 .loader {

@@ -1,6 +1,4 @@
 import { Resend } from "resend"
-import * as EmailTemplate from "@/shared/components/shared/email-templates"
-import { PaymentTemplateProps } from "../components/shared/email-templates/payment-template"
 
 export const sendEmail = async (
   to: string,

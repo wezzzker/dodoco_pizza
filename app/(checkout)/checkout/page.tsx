@@ -8,6 +8,7 @@ import { CheckoutFormValues } from "@/shared/components/shared/checkout/checkout
 import { createOrder } from "@/app/actions"
 import toast from "react-hot-toast"
 import React from "react"
+import { Mail } from "@/shared/components/shared/mail"
 
 export default function CheckoutPage() {
   const { cartItems, removeCartItem, totalAmount, updateItemQuantity } =
