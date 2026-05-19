@@ -43,7 +43,12 @@ export const FormTextarea: React.FC<Props> = ({
       <div className="relative">
         <Textarea className="text-md h-12" {...register(name)} {...props} />
 
-        {value && <ClearButton onClick={onClickClear} />}
+        {value && (
+          <ClearButton
+            className="absolute top-2 right-2"
+            onClick={onClickClear}
+          />
+        )}
       </div>
 
       {errorText && <ErrorText text={String(errorText)} className="mt-2" />}

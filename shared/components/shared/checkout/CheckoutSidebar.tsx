@@ -1,16 +1,17 @@
 import React from "react"
-import { Box, Percent, Truck } from "lucide-react"
+import { ArrowRight, Box, Percent, Truck } from "lucide-react"
 import { WhiteBlock } from "../WhiteBlock"
 import { PaymentDetails } from "../PaymentDetails"
 import { Button } from "../../ui"
 
 interface Props {
   totalAmount: number
+  loading?: boolean
 }
 const VAT = 15
 const DELIVERY_PRICE = 250
 
-export const CheckoutSidebar: React.FC<Props> = ({ totalAmount }) => {
+export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading }) => {
   const vatPrice = (totalAmount * VAT) / 100
   const totalPrice = totalAmount + DELIVERY_PRICE + vatPrice
   return (
@@ -39,10 +40,12 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount }) => {
         <div className="p-6">
           <span className="text-neutral-400">У меня есть промокод</span>
           <Button
+            loading={loading}
             type="submit"
-            className="mt-6 h-14 w-full rounded-md text-base font-bold"
+            className="mt-6 flex h-14 w-full gap-2 rounded-md text-base font-bold"
           >
             Перейти к оплате
+            <ArrowRight className="h-[22px]" />
           </Button>
         </div>
       </WhiteBlock>

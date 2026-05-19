@@ -3,29 +3,11 @@ import React from "react"
 import { WhiteBlock } from "../WhiteBlock"
 import * as Form from "@/shared/components/shared/form"
 
-import { ErrorText } from "../ErrorText"
-import { Controller, useFormContext } from "react-hook-form"
-interface Props {
-  className?: string
-}
-
-export const CheckoutAdress: React.FC<Props> = ({ className }) => {
-  const { control } = useFormContext()
+export const CheckoutAdress: React.FC = () => {
   return (
     <WhiteBlock title="3. Адрес доставки">
       <div className="flex flex-col gap-5">
-        <Controller
-          name="adress"
-          render={({ field, fieldState }) => (
-            <>
-              <Form.Adress onChange={field.onChange} />
-              {fieldState.error?.message && (
-                <ErrorText text={fieldState.error.message} />
-              )}
-            </>
-          )}
-          control={control}
-        />
+        <Form.Adress placeholder="Введите адрес доставки" />
         <Form.Textarea
           rows={5}
           name="comment"

@@ -13596,7 +13596,7 @@ export namespace Prisma {
   }
 
   export type CartItemCreateInput = {
-    quantity: number
+    quantity?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     productItem: ProductVariationCreateNestedOneWithoutCartItemsInput
@@ -13606,7 +13606,7 @@ export namespace Prisma {
 
   export type CartItemUncheckedCreateInput = {
     id?: number
-    quantity: number
+    quantity?: number
     productItemId: number
     cartId: number
     createdAt?: Date | string
@@ -13635,7 +13635,7 @@ export namespace Prisma {
 
   export type CartItemCreateManyInput = {
     id?: number
-    quantity: number
+    quantity?: number
     productItemId: number
     cartId: number
     createdAt?: Date | string
@@ -15682,7 +15682,7 @@ export namespace Prisma {
   }
 
   export type CartItemCreateWithoutProductItemInput = {
-    quantity: number
+    quantity?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     cart: CartCreateNestedOneWithoutCartItemsInput
@@ -15691,7 +15691,7 @@ export namespace Prisma {
 
   export type CartItemUncheckedCreateWithoutProductItemInput = {
     id?: number
-    quantity: number
+    quantity?: number
     cartId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15791,7 +15791,7 @@ export namespace Prisma {
   }
 
   export type CartItemCreateWithoutIngredientsInput = {
-    quantity: number
+    quantity?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     productItem: ProductVariationCreateNestedOneWithoutCartItemsInput
@@ -15800,7 +15800,7 @@ export namespace Prisma {
 
   export type CartItemUncheckedCreateWithoutIngredientsInput = {
     id?: number
-    quantity: number
+    quantity?: number
     productItemId: number
     cartId: number
     createdAt?: Date | string
@@ -15879,7 +15879,7 @@ export namespace Prisma {
   }
 
   export type CartItemCreateWithoutCartInput = {
-    quantity: number
+    quantity?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     productItem: ProductVariationCreateNestedOneWithoutCartItemsInput
@@ -15888,7 +15888,7 @@ export namespace Prisma {
 
   export type CartItemUncheckedCreateWithoutCartInput = {
     id?: number
-    quantity: number
+    quantity?: number
     productItemId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16418,7 +16418,7 @@ export namespace Prisma {
 
   export type CartItemCreateManyProductItemInput = {
     id?: number
-    quantity: number
+    quantity?: number
     cartId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16505,7 +16505,7 @@ export namespace Prisma {
 
   export type CartItemCreateManyCartInput = {
     id?: number
-    quantity: number
+    quantity?: number
     productItemId: number
     createdAt?: Date | string
     updatedAt?: Date | string
