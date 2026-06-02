@@ -1,3 +1,4 @@
+import { Providers } from "@/shared/components/shared/Providers"
 import "./global.css"
 import { Nunito } from "next/font/google"
 import { Toaster } from "react-hot-toast"
@@ -18,8 +19,7 @@ export default function RootLayout({
         <link href="/favicon.ico" rel="icon" data-rh="true" />
       </head>
       <body className={nunito.variable}>
-        {children}
-        <Toaster />
+        <Providers> {children}</Providers>
       </body>
     </html>
   )

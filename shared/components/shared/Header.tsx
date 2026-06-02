@@ -2,14 +2,13 @@
 import React from "react"
 import Image from "next/image"
 import Link from "next/link"
-
 import { cn } from "@/shared/lib/utils"
+import { Container, SearchInput, CartButton, AuthModal } from "./index"
 
-import { Container, SearchInput, CartButton } from "./index"
-import { Button } from "../ui"
-import { User } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import toast from "react-hot-toast"
+import { useSession } from "next-auth/react"
+import { ProfileButton } from "./ProfileButton"
 
 interface Props {
   className?: string
@@ -17,6 +16,7 @@ interface Props {
 }
 
 export const Header: React.FC<Props> = ({ className, checkout = false }) => {
+  const [openAuthModal, setOpenAuthModal] = React.useState(false)
   const searchParams = useSearchParams()
   const router = useRouter()
   React.useEffect(() => {
@@ -45,11 +45,12 @@ export const Header: React.FC<Props> = ({ className, checkout = false }) => {
         <div className="mx-10 flex-1">{!checkout && <SearchInput />}</div>
         {/* Правая часть */}
         <div className="flex items-center gap-3">
-          <Button variant={"outline"} className="flex items-center gap-1">
-            <User size={16} />
-            Войти
-          </Button>
           {/* Корзина */}
+          <AuthModal
+            onClose={() => setOpenAuthModal(false)}
+            open={openAuthModal}
+          />
+          <ProfileButton onSignIn={() => setOpenAuthModal(true)} />
           {!checkout && <CartButton />}
         </div>
       </Container>
